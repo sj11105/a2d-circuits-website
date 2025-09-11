@@ -1,151 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import ProductPageTemplate from '@/components/ProductPageTemplate';
-// import { apiService } from '@/services/api';
-// import { transformBackendProduct } from '@/utils/productTransform';
 import { Product } from '@/types/product';
+import productsData from '../../data/products.json';
 
-const ProductDetailPage = () => {
+interface ProductDetailPageProps {
+  product: Product | null;
+}
+
+const ProductDetailPage = ({ product }: ProductDetailPageProps) => {
   const router = useRouter();
-  const { id } = router.query;
-  
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!id) return;
-
-    async function fetchProduct() {
-      try {
-        setLoading(true);
-        
-        // Static product data - temporarily commenting out API calls
-        // TODO: Restore API integration when backend is ready
-        /*
-        let productData = null;
-        
-        // Try using our API service
-        try {
-          const apiResponse = await apiService.getProduct(Number(id));
-          if (apiResponse.error) {
-            throw new Error(apiResponse.error);
-          }
-          if (apiResponse.data) {
-            productData = apiResponse.data;
-          }
-        } catch (apiError) {
-          console.error('API service error:', apiError);
-          
-          // Fallback to direct fetch
-          try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/products/${id}`);
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            productData = await response.json();
-          } catch (directError) {
-            console.error('Direct fetch error:', directError);
-            
-            // Try the Next.js API proxy as last resort
-            try {
-              const proxyResponse = await fetch(`/api/products/${id}`);
-              if (!proxyResponse.ok) {
-                throw new Error(`HTTP error! status: ${proxyResponse.status}`);
-              }
-              productData = await proxyResponse.json();
-            } catch (proxyError) {
-              console.error('Proxy API error:', proxyError);
-              throw new Error('Failed to fetch product after multiple attempts');
-            }
-          }
-        }
-
-        if (productData) {
-          console.log('Product data before transform:', productData);
-          const transformedProduct = transformBackendProduct(productData);
-          console.log('Transformed product:', transformedProduct);
-          setProduct(transformedProduct);
-          setError(null);
-        } else {
-          throw new Error('No product data returned');
-        }
-        */
-        
-        // Temporary fallback - show error message for individual product pages
-        setError('Individual product pages are temporarily unavailable. Please visit the main products page to view our catalog.');
-      } catch (err: any) {
-        console.error('Product fetch error:', err);
-        setError(err.message || 'Failed to load product. Please try again later.');
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchProduct();
-  }, [id]);
 
   const handleInquiry = () => {
-    if (product) {
-      // Navigate to contact page with product information
-      router.push({
-        pathname: '/contact',
-        query: {
-          product: product.name,
-          model: product.model,
-          partNumber: product.partNumber,
-        },
-      });
-    }
+    console.log('Inquiry about product:', product?.name);
   };
 
   const handleAddToQuote = () => {
-    if (product) {
-      // In a real application, this would add the product to a quote/cart system
-      alert(`${product.name} added to quote! This would normally integrate with your quote management system.`);
-    }
+    if (!product) return;
+    
+    // Navigate to contact page with product details
+    router.push({
+      pathname: '/contact',
+      query: {
+        inquiryType: 'quote',
+        product: product.name,
+        code: product.model,
+        price: product.price
+      }
+    });
   };
 
-  // Loading state
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[var(--color-warm-white)] pt-24">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--color-primary)] mx-auto"></div>
-          <p className="mt-4 text-lg text-[var(--color-charcoal-gray)]">Loading product...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Error state
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[var(--color-warm-white)] pt-24">
-        <div className="text-center">
-          <div className="text-red-500 text-6xl mb-4">⚠️</div>
-          <h1 className="text-2xl font-bold text-[var(--color-black)] mb-4">Failed to Load Product</h1>
-          <p className="text-[var(--color-charcoal-gray)] mb-8">{error}</p>
-          <div className="space-x-4">
-            <button
-              onClick={() => router.back()}
-              className="bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600 transition-colors"
-            >
-              Go Back
-            </button>
-            <button
-              onClick={() => router.push('/products')}
-              className="bg-[var(--color-primary)] text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition-colors"
-            >
-              Browse Products
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Product not found
   if (!product) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[var(--color-warm-white)] pt-24">
@@ -179,6 +64,89 @@ const ProductDetailPage = () => {
       onAddToQuote={handleAddToQuote}
     />
   );
+};
+
+// Transform raw product data to match our Product interface
+const transformProduct = (rawProduct: any, index: number): Product => {
+  // Image mapping based on product names to actual files
+  const imageMap: { [key: string]: string } = {
+    'FULLTECH Metal Axial Fan': '/FULLTECH Metal Axial Fan.png',
+    'Three-Phase Motor Control Module': '/THREE-PHASE MOTOR CONTROL MODULE.png',
+    '14.2 mm (0.56 inch) Seven Segment Display': '/14 mm - Seven Segment Displays.png',
+    'Arduino UNO R3': '/Arduino UNO R3.jpeg',
+    'Control Techniques Commander SE AC Drive': '/Commander SE.png',
+    'Delta DC Brushless Blower Fan': '/Delta BFB1012UH DC Brushless Blower Fan.png',
+    'SERVO DC Brushless Cooling Fan': '/SERVO CNDC12Z7P-028 DC Brushless Cooling Fan.png',
+    'SUNON DC Cooling Fan': '/SUNON GM0502PFV1-8 2510 5V DC FAN.png',
+    'MOOSL DC Silent Blower': '/MOOSL D49X-101 DC Silent Blower.png',
+    'Edwards EST Genesis Audible Fire Alarm': '/Edwards EST GCF-S7 Genesis.jpg'
+  };
+
+  const imageSrc = imageMap[rawProduct.name] || '/hero.jpg';
+
+  return {
+    id: (index + 1).toString(),
+    name: rawProduct.name,
+    model: rawProduct.model,
+    partNumber: rawProduct.model,
+    description: rawProduct.description,
+    price: rawProduct.price,
+    availability: 'In Stock' as const,
+    category: 'Electronics',
+    sku: `SKU-${(index + 1).toString().padStart(3, '0')}`,
+    tags: ['electronics', 'components'],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    images: [{
+      src: imageSrc,
+      alt: rawProduct.name,
+      title: rawProduct.name
+    }],
+    specifications: [
+      {
+        name: 'Model',
+        value: rawProduct.model
+      },
+      {
+        name: 'Description',
+        value: rawProduct.description
+      }
+    ]
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // Generate paths for all products
+  const paths = productsData.map((_, index) => ({
+    params: { id: (index + 1).toString() }
+  }));
+
+  return {
+    paths,
+    fallback: false // Set to false since we're generating all paths at build time
+  };
+};
+
+export const getStaticProps: GetStaticProps<ProductDetailPageProps> = async ({ params }) => {
+  const id = params?.id as string;
+  const productIndex = parseInt(id) - 1;
+
+  if (productIndex < 0 || productIndex >= productsData.length) {
+    return {
+      props: {
+        product: null
+      }
+    };
+  }
+
+  const rawProduct = productsData[productIndex];
+  const product = transformProduct(rawProduct, productIndex);
+
+  return {
+    props: {
+      product
+    }
+  };
 };
 
 export default ProductDetailPage;

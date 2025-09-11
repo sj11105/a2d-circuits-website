@@ -1,0 +1,62 @@
+[
+{
+"name": "FULLTECH Metal Axial Fan",
+"model": "UF-250BMB23H1C2A",
+"description": "A 280x280x80mm metal axial cooling fan designed for industrial use, operating at 230V AC. It delivers an airflow of approximately 1921 m³/h at 2550/2700 RPM.",
+"price": "₹1,999/Piece"
+},
+{
+  "name": "Three-Phase Motor Control Module",
+  "model": "HFS21",
+  "description": "A power control module for three-phase motor forward and reverse operation. It includes logic interlock, delay turn-on circuits, and internal snubbers to protect the motor and system during switching. Features photo isolation, zero-cross switching, and a dual-color LED for status indication.",
+  "price": "₹9,839 (approx)"
+},
+{
+  "name": "14.2 mm (0.56 inch) Seven Segment Display",
+  "model": "Industry Standard 0.56 inch",
+  "description": "A 14.2mm (0.56 inch) seven-segment LED display designed for viewing distances up to 7 meters. It uses an industry-standard package and pinout, is available in multiple colors, and comes in either common anode or common cathode configurations.",
+  "price": "₹9/Piece"
+},
+{
+  "name": "Arduino UNO R3",
+  "model": "UNO R3",
+  "description": "A versatile development board for learning electronics and coding, equipped with the ATmega328P processor (32kB Flash, 2kB SRAM) and an ATMega16U2 for USB communication. It features a wide range of peripherals including timers, USART, SPI, I2C, and PWM channels.",
+  "price": "₹310"
+},
+{
+  "name": "Control Techniques Commander SE AC Drive",
+  "model": "SE23400150",
+  "description": "A 1.5 kW (2 HP) Commander SE series AC drive for three-phase 380-480 VAC systems. It offers precise motor control, an integrated braking transistor, and standard RS485 communications, making it ideal for applications like conveyors, pumps, and fans.",
+  "price": "₹18,960"
+},
+{
+  "name": "Delta DC Brushless Blower Fan",
+  "model": "BFB1012UH",
+  "description": "A high-performance 12V DC air cooling blower fan operating at 6.00A. It features a dual ball bearing, reaches speeds over 8300 RPM, and is known for its powerful airflow, making it suitable for demanding cooling applications.",
+  "price": "₹781"
+},
+{
+  "name": "SERVO DC Brushless Cooling Fan",
+  "model": "CNDC12Z7P-028",
+  "description": "A 120x120x38mm axial DC fan from Japan Servo Co. operating at 12V and 0.71A. It is designed for high performance, delivering an airflow of approximately 124 CFM at a speed of 3200 RPM.",
+  "price": "₹150/Piece"
+},
+{
+  "name": "SUNON DC Cooling Fan",
+  "model": "GM0502PFV1-8",
+  "description": "A 25x25x10mm DC brushless axial fan operating at 5V and 0.6W. It utilizes a Vapo-Bearing (MagLev) system for quiet operation and spins at 13000 RPM to deliver 3.5 CFM of airflow, featuring a speed sensor for monitoring.",
+  "price": "₹272.58"
+},
+{
+  "name": "MOOSL DC Silent Blower",
+  "model": "D49X-101",
+  "description": "A 97x94.5x33mm DC silent blower fan operating at 12V. It runs at 3700 RPM to deliver 26.5 CFM of airflow and includes a speed sensor for monitoring.",
+  "price": "Call for Quote"
+},
+{
+  "name": "Edwards EST Genesis Audible Fire Alarm",
+  "model": "GCF-S7",
+  "description": "A high-fidelity audible fire alarm (ceiling speaker) that operates at 70 Vrms. It features selectable wattage taps (¼W, ½W, 1W, 2W), a 400 to 4,000 Hz frequency response, and a low-profile design for indoor ceiling or wall mounting.",
+  "price": "₹1,850/piece"
+}
+]
