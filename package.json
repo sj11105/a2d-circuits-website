@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next build && node scripts/hostinger-prepare.js",
+    "hostinger": "npm run export && cd out && zip -r ../a2d-circuits-hostinger.zip ."
   },
   "dependencies": {
     "@types/node": "^20",
