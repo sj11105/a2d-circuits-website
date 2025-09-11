@@ -1,7 +1,9 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function Contact() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -9,11 +11,77 @@ export default function Contact() {
     message: "",
   });
 
+  // Handle product quote parameters
+  useEffect(() => {
+    if (router.isReady) {
+      const { product, code, price, inquiryType } = router.query;
+      
+      if (inquiryType === 'quote' && product) {
+        setFormData(prev => ({
+          ...prev,
+          subject: `Quote Request - ${product}`,
+          message: `Hello,
+
+I would like to request a quote for the following product:
+
+Product: ${product}
+Code: ${code}
+Listed Price: ${price}
+
+Please provide me with:
+- Current availability
+- Bulk pricing options
+- Lead time
+- Shipping details
+
+Thank you for your time.
+
+Best regards,`
+        }));
+      }
+    }
+  }, [router.isReady, router.query]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
-    alert("Thank you for your message! We'll get back to you soon.");
+    
+    // Create email content
+    const subject = encodeURIComponent(formData.subject);
+    const body = encodeURIComponent(`
+Dear a2d Circuits Team,
+
+Name: ${formData.name}
+Email: ${formData.email}
+Subject: ${formData.subject}
+
+Message:
+${formData.message}
+
+---
+This message was sent through the a2d Circuits website contact form.
+    `);
+    
+    // Create mailto link
+    const mailtoLink = `mailto:a2dcircuits123@gmail.com?subject=${subject}&body=${body}`;
+    
+    // Try to open the user's email client
+    try {
+      window.location.href = mailtoLink;
+      
+      // Show success message
+      alert("Your email client should have opened with a pre-filled message. Please send the email from your email client.");
+      
+      // Optional: Reset form after successful submission
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Error opening email client:", error);
+      alert("Unable to open email client. Please manually send an email to: a2dcircuits123@gmail.com");
+    }
   };
 
   const handleChange = (

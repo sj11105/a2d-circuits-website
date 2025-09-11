@@ -1,248 +1,267 @@
-import { CardHoverEffectDemo } from "@/components/ProductCard";
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const products = [
   {
-    id: "ic123",
-    name: "Delta Electronics DC Brushless Blower Fan",
-    code: "BFB1012UH3",
-    price: "Approximately ₹2,000-₹4,500",
-    image: "/public/electronics.jpg",
-    alt: "Integrated Circuit",
+    id: "fulltech-axial-fan",
+    name: "FULLTECH Metal Axial Fan",
+    code: "UF-250BMB23H1C2A",
+    price: "₹1,999/Piece",
+    image: "/FULLTECH Metal Axial Fan.png",
+    alt: "FULLTECH Metal Axial Fan",
+    description: "A 280x280x80mm metal axial cooling fan designed for industrial use, operating at 230V AC. It delivers an airflow of approximately 1921 m³/h at 2550/2700 RPM.",
   },
   {
-    id: "tr456",
-    name: "Siemens Indicator Light Module",
-    code: "3SB14 04-2HZ26",
-    price:
-      "Price not readily available, may be a discontinued or specialized part.",
-    image: "/public/siemens indicator.jpg",
-    alt: "Transistor",
+    id: "three-phase-motor",
+    name: "Three-Phase Motor Control Module",
+    code: "HFS21",
+    price: "₹9,839 (approx)",
+    image: "/THREE-PHASE MOTOR CONTROL MODULE.png",
+    alt: "Three-Phase Motor Control Module",
+    description: "A power control module for three-phase motor forward and reverse operation. It includes logic interlock, delay turn-on circuits, and internal snubbers to protect the motor and system during switching. Features photo isolation, zero-cross switching, and a dual-color LED for status indication.",
   },
   {
-    id: "cp789",
-    name: "Fire Alarm Sounder",
-    code: "RE-24SS",
-    price: "Approximately ₹400-₹600",
-    image: "/public/fire alarm.jpg",
-    alt: "Capacitor",
+    id: "seven-segment-display",
+    name: "14.2 mm (0.56 inch) Seven Segment Display",
+    code: "Industry Standard 0.56 inch",
+    price: "₹9/Piece",
+    image: "/14 mm - Seven Segment Displays.png",
+    alt: "Seven Segment Display",
+    description: "A 14.2mm (0.56 inch) seven-segment LED display designed for viewing distances up to 7 meters. It uses an industry-standard package and pinout, is available in multiple colors, and comes in either common anode or common cathode configurations.",
   },
   {
-    id: "rs012",
-    name: "RS PRO Lithium-Ion Rechargeable Battery Pack",
-    code: "RS Stock No. 260-2990",
-    price:
-      "'P.O.A. (Price on Application), you must contact the supplier for a quote",
-    image: "/public/rspro.jpg",
-    alt: "Resistor",
+    id: "arduino-uno",
+    name: "Arduino UNO R3",
+    code: "UNO R3",
+    price: "₹310",
+    image: "/Arduino UNO R3.jpeg",
+    alt: "Arduino UNO R3",
+    description: "A versatile development board for learning electronics and coding, equipped with the ATmega328P processor (32kB Flash, 2kB SRAM) and an ATMega16U2 for USB communication. It features a wide range of peripherals including timers, USART, SPI, I2C, and PWM channels.",
   },
   {
-    id: "dd345",
-    name: "Diode - DD345",
-    code: "DD345",
-    price: "$1.29",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuA-BfJ99pOeazZMiJCnKR8SI53P-A6owNxPtY0CsY3zYWOxuQQTWvMOpf5DO671WFeWqjEDeZ5v3OZyDktLm7I-c8Cl9lXqd7SalFGtLVYlrgxP-dIXyWu0rKt8_pyGtYU4jVNFtc18YLG8wfNAts7LWZcWwi6UNxspzqB1bfjyVB-gNTsuk-VTDdP4rM6RJHcMr6urYV0G9t99B8a4DPK4Rw1TmWYv1T3xlilGeN2KFsSekAduuGh1ZgpmIYb8Y4ntXPLDP68Qb2Y",
-    alt: "Diode",
+    id: "commander-se",
+    name: "Control Techniques Commander SE AC Drive",
+    code: "SE23400150",
+    price: "₹18,960",
+    image: "/Commander SE.png",
+    alt: "Commander SE AC Drive",
+    description: "A 1.5 kW (2 HP) Commander SE series AC drive for three-phase 380-480 VAC systems. It offers precise motor control, an integrated braking transistor, and standard RS485 communications, making it ideal for applications like conveyors, pumps, and fans.",
   },
   {
-    id: "in678",
-    name: "Inductor - IN678",
-    code: "IN678",
-    price: "$3.79",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuBAAihZ6RwdszGqZK9sSpMQuUGEkTEGG38qidTnrxzV-sOd1KuBpnj-7fc6-qwEUjp_aG8oHrzWdhVb07Ld3wiREkw4WaPgNessVezrDuRgFxmijl3732qgsLbhZurHqkZcGnD3awp33jfBvAeQeTBefnhgfo_WERZAI-Vgn0uL-DOMk8TB_w1OIiuWohUyX5_GrUzF61vSVUzm5IKD4jOJRm4wldA7IFZ2oEoiO4ncagzSSKAu5uN01zSHZu-pul7W7CUbwBmQZTA",
-    alt: "Inductor",
+    id: "delta-blower",
+    name: "Delta DC Brushless Blower Fan",
+    code: "BFB1012UH",
+    price: "₹781",
+    image: "/Delta BFB1012UH DC Brushless Blower Fan.png",
+    alt: "Delta DC Brushless Blower Fan",
+    description: "A high-performance 12V DC air cooling blower fan operating at 6.00A. It features a dual ball bearing, reaches speeds over 8300 RPM, and is known for its powerful airflow, making it suitable for demanding cooling applications.",
+  },
+  {
+    id: "servo-fan",
+    name: "SERVO DC Brushless Cooling Fan",
+    code: "CNDC12Z7P-028",
+    price: "₹150/Piece",
+    image: "/SERVO CNDC12Z7P-028 DC Brushless Cooling Fan.png",
+    alt: "SERVO DC Brushless Cooling Fan",
+    description: "A 120x120x38mm axial DC fan from Japan Servo Co. operating at 12V and 0.71A. It is designed for high performance, delivering an airflow of approximately 124 CFM at a speed of 3200 RPM.",
+  },
+  {
+    id: "sunon-fan",
+    name: "SUNON DC Cooling Fan",
+    code: "GM0502PFV1-8",
+    price: "₹272.58",
+    image: "/SUNON GM0502PFV1-8 2510 5V DC FAN.png",
+    alt: "SUNON DC Cooling Fan",
+    description: "A 25x25x10mm DC brushless axial fan operating at 5V and 0.6W. It utilizes a Vapo-Bearing (MagLev) system for quiet operation and spins at 13000 RPM to deliver 3.5 CFM of airflow, featuring a speed sensor for monitoring.",
+  },
+  {
+    id: "moosl-blower",
+    name: "MOOSL DC Silent Blower",
+    code: "D49X-101",
+    price: "Call for Quote",
+    image: "/MOOSL D49X-101 DC Silent Blower.png",
+    alt: "MOOSL DC Silent Blower",
+    description: "A 97x94.5x33mm DC silent blower fan operating at 12V. It runs at 3700 RPM to deliver 26.5 CFM of airflow and includes a speed sensor for monitoring.",
+  },
+  {
+    id: "edwards-alarm",
+    name: "Edwards EST Genesis Audible Fire Alarm",
+    code: "GCF-S7",
+    price: "₹1,850/piece",
+    image: "/Edwards EST GCF-S7 Genesis.jpg",
+    alt: "Edwards EST Genesis Fire Alarm",
+    description: "A high-fidelity audible fire alarm (ceiling speaker) that operates at 70 Vrms. It features selectable wattage taps (¼W, ½W, 1W, 2W), a 400 to 4,000 Hz frequency response, and a low-profile design for indoor ceiling or wall mounting.",
   },
 ];
 
 export default function Products() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortBy, setSortBy] = useState('featured');
+  const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
+  const router = useRouter();
 
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     product.code.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleAddToQuote = (product: typeof products[0]) => {
+    // Navigate to contact page with product details as query parameters
+    router.push({
+      pathname: '/contact',
+      query: {
+        product: product.name,
+        code: product.code,
+        price: product.price,
+        inquiryType: 'quote'
+      }
+    });
+  };
+
+  const toggleDescription = (productId: string) => {
+    setExpandedCards(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(productId)) {
+        newSet.delete(productId);
+      } else {
+        newSet.add(productId);
+      }
+      return newSet;
+    });
+  };
+
   return (
     <>
       <Head>
         <title>Products - a2d Circuits</title>
-        <meta
-          name="description"
-          content="Browse our extensive collection of unique and obsolete circuit components."
-        />
+        <meta name="description" content="Browse our extensive collection of unique and obsolete circuit components." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       <div className="bg-[var(--color-warm-white)] min-h-screen pt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="mb-6 text-sm">
-            <ol className="inline-flex items-center space-x-1 md:space-x-2">
-              <li className="inline-flex items-center">
-                <Link
-                  href="/"
-                  className="inline-flex items-center text-gray-500 hover:text-[var(--color-black)]"
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <div className="flex items-center">
-                  <svg
-                    className="w-3 h-3 text-gray-400 mx-1"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clipRule="evenodd"
-                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                      fillRule="evenodd"
-                    />
-                  </svg>
-                  <span className="ml-1 text-[var(--color-black)] font-medium">
-                    All Products
-                  </span>
-                </div>
-              </li>
-            </ol>
-          </nav>
-
-          {/* Header */}
           <header className="mb-8">
-            <h1 className="text-4xl font-bold tracking-tight text-[var(--color-black)]">
-              All Products
-            </h1>
-            <p className="mt-2 text-lg text-[var(--color-charcoal-gray)]">
-              Browse our extensive collection of unique and obsolete circuit components.
-            </p>
+            <h1 className="text-4xl font-bold tracking-tight text-[var(--color-black)]">All Products</h1>
+            <p className="mt-2 text-lg text-[var(--color-charcoal-gray)]">Browse our extensive collection of unique and obsolete circuit components.</p>
           </header>
 
-          {/* Search and Filters */}
-          <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <div className="flex-1 max-w-md">
-              <input
-                type="search"
-                placeholder="Search components..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-full border-gray-300 bg-white px-4 py-2 text-base text-[var(--color-black)] placeholder:text-gray-400 focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] transition-shadow"
-              />
-            </div>
-            
-            <div className="flex items-center gap-4">
-              <button className="flex items-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-[var(--color-black)] hover:bg-gray-100 transition-colors">
-                Category
-                <svg
-                  className="h-4 w-4 text-gray-500"
-                  fill="currentColor"
-                  viewBox="0 0 256 256"
-                >
-                  <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z" />
-                </svg>
-              </button>
+          <div className="mb-8 space-y-4">
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+              <div className="flex-1 max-w-md">
+                <input
+                  type="search"
+                  placeholder="Search products by name or code..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full rounded-full border-gray-300 bg-white px-4 py-2 text-base text-[var(--color-black)] placeholder:text-gray-400 focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] transition-colors"
+                />
+              </div>
               
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="rounded-full border-gray-300 bg-white py-2 pl-4 pr-8 text-sm font-medium text-[var(--color-black)] focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)]"
-              >
-                <option value="featured">Sort by: Featured</option>
-                <option value="newest">Sort by: Newest</option>
-                <option value="price-low">Sort by: Price (Low to High)</option>
-                <option value="price-high">Sort by: Price (High to Low)</option>
-              </select>
+              {/* Results counter */}
+              <div className="text-sm text-[var(--color-charcoal-gray)]">
+                {searchTerm ? (
+                  <span>
+                    {filteredProducts.length} result{filteredProducts.length !== 1 ? 's' : ''} found
+                    {filteredProducts.length > 0 && (
+                      <button
+                        onClick={() => setSearchTerm('')}
+                        className="ml-2 text-[var(--color-primary)] hover:underline"
+                      >
+                        Clear search
+                      </button>
+                    )}
+                  </span>
+                ) : (
+                  <span>Showing all {products.length} products</span>
+                )}
+              </div>
             </div>
           </div>
 
           {/* Products Grid */}
-          <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-            {filteredProducts.map((product) => (
-              <div key={product.id} className="group">
-                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-2xl bg-gray-100">
-                  <img
-                    alt={product.alt}
-                    className="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity"
-                    src={product.image}
-                  />
-                </div>
-                <h3 className="mt-4 text-lg font-semibold text-[var(--color-black)]">
-                  {product.name}
-                </h3>
-                <p className="mt-1 text-sm text-[var(--color-charcoal-gray)]">
-                  Code: {product.code}
-                </p>
-                <p className="mt-2 text-base font-bold text-[var(--color-black)]">
-                  {product.price}
-                </p>
-                <button className="mt-4 w-full rounded-full bg-[var(--color-primary)] py-2.5 px-5 text-sm font-semibold text-white hover:bg-opacity-90 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)]">
-                  Add to Quote
-                </button>
-              </div>
-            ))}
-          </div>
+          {filteredProducts.length === 0 ? (
+            <div className="text-center py-16">
+              <div className="text-gray-400 text-6xl mb-4">🔍</div>
+              <h3 className="text-xl font-semibold text-[var(--color-black)] mb-2">
+                No products found
+              </h3>
+              <p className="text-[var(--color-charcoal-gray)] mb-4">
+                We couldn&apos;t find any products matching &quot;{searchTerm}&quot;. Try adjusting your search terms.
+              </p>
+              <button
+                onClick={() => setSearchTerm('')}
+                className="rounded-full bg-[var(--color-primary)] text-white px-6 py-2 hover:bg-opacity-90 transition-colors"
+              >
+                View All Products
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {filteredProducts.map((product) => {
+                const isExpanded = expandedCards.has(product.id);
+                const descriptionWords = product.description.split(' ');
+                const shouldTruncate = descriptionWords.length > 20;
+                const displayDescription = shouldTruncate && !isExpanded 
+                  ? descriptionWords.slice(0, 20).join(' ') + '...'
+                  : product.description;
 
-          {/* Pagination */}
-          <nav
-            aria-label="Pagination"
-            className="mt-12 flex items-center justify-center border-t border-gray-200 pt-8"
-          >
-            <button className="inline-flex items-center justify-center rounded-full h-10 w-10 text-gray-500 hover:bg-gray-100 transition-colors">
-              <span className="sr-only">Previous</span>
-              <svg
-                aria-hidden="true"
-                className="h-5 w-5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clipRule="evenodd"
-                  d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                  fillRule="evenodd"
-                />
-              </svg>
-            </button>
-            <button
-              aria-current="page"
-              className="inline-flex items-center justify-center rounded-full h-10 w-10 text-white bg-[var(--color-primary)] text-sm font-medium z-10 mx-1"
-            >
-              1
-            </button>
-            <button className="inline-flex items-center justify-center rounded-full h-10 w-10 text-gray-500 hover:bg-gray-100 transition-colors text-sm font-medium mx-1">
-              2
-            </button>
-            <button className="hidden md:inline-flex items-center justify-center rounded-full h-10 w-10 text-gray-500 hover:bg-gray-100 transition-colors text-sm font-medium mx-1">
-              3
-            </button>
-            <span className="hidden md:inline-flex items-center justify-center rounded-full h-10 w-10 text-gray-500 text-sm font-medium mx-1">
-              ...
-            </span>
-            <button className="hidden md:inline-flex items-center justify-center rounded-full h-10 w-10 text-gray-500 hover:bg-gray-100 transition-colors text-sm font-medium mx-1">
-              8
-            </button>
-            <button className="inline-flex items-center justify-center rounded-full h-10 w-10 text-gray-500 hover:bg-gray-100 transition-colors">
-              <span className="sr-only">Next</span>
-              <svg
-                aria-hidden="true"
-                className="h-5 w-5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clipRule="evenodd"
-                  d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                  fillRule="evenodd"
-                />
-              </svg>
-            </button>
-          </nav>
+                return (
+                  <div key={product.id} className="group flex flex-col h-full bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300">
+                    {/* Product Image - Fixed height */}
+                    <div className="relative h-48 w-full bg-gray-100">
+                      <img
+                        alt={product.alt}
+                        className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                        src={product.image}
+                      />
+                    </div>
+                    
+                    {/* Product Content - Flexible height with consistent spacing */}
+                    <div className="flex flex-col flex-grow p-4">
+                      {/* Product Name - Fixed height with line clamping */}
+                      <h3 className="text-lg font-semibold text-[var(--color-black)] line-clamp-2 min-h-[3.5rem] mb-2">
+                        {product.name}
+                      </h3>
+                      
+                      {/* Product Code */}
+                      <p className="text-sm text-[var(--color-charcoal-gray)] mb-3">
+                        <span className="font-medium">Code:</span> {product.code}
+                      </p>
+                      
+                      {/* Product Description - Expandable */}
+                      <div className="flex-grow mb-4">
+                        <p className="text-sm text-gray-600 leading-relaxed">
+                          {displayDescription}
+                        </p>
+                        {shouldTruncate && (
+                          <button
+                            onClick={() => toggleDescription(product.id)}
+                            className="text-[var(--color-primary)] text-sm font-medium hover:underline mt-1"
+                          >
+                            {isExpanded ? 'Show Less' : 'Read More'}
+                          </button>
+                        )}
+                      </div>
+                      
+                      {/* Price and Button - Always at bottom */}
+                      <div className="mt-auto">
+                        <p className="text-base font-bold text-[var(--color-black)] mb-3">
+                          {product.price}
+                        </p>
+                        <button 
+                          onClick={() => handleAddToQuote(product)}
+                          className="w-full rounded-full bg-[var(--color-primary)] py-2.5 px-5 text-sm font-semibold text-white hover:bg-opacity-90 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)]"
+                        >
+                          Add to Quote
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </>

@@ -80,7 +80,7 @@ const ProductShowcasePage = () => {
                   <h3 className="text-sm font-medium text-blue-800 mb-1">Demo Information</h3>
                   <p className="text-sm text-blue-700">
                     This is a demonstration page showcasing the product template capabilities. 
-                    The "Call for Inquiry" button will open your email client, and the "Add to Quote" 
+                    The &quot;Call for Inquiry&quot; button will open your email client, and the &quot;Add to Quote&quot; 
                     button shows a demo alert. In production, these would integrate with your actual 
                     contact and quote management systems.
                   </p>

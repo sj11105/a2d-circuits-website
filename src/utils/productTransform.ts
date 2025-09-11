@@ -1,5 +1,18 @@
 import { Product } from '@/types/product';
-import { BackendProduct } from '@/services/api';
+// import { BackendProduct } from '@/services/api';
+
+// Temporary type definition until API service is restored
+interface BackendProduct {
+  id: number;
+  name: string;
+  description?: string;
+  price?: string;
+  image_url?: string;
+  image?: string;
+  sku?: string;
+  category?: string;
+  specifications?: any;
+}
 
 /**
  * Transform a backend product to frontend product format
@@ -96,7 +109,7 @@ export function transformToBackendProduct(product: Product): Omit<BackendProduct
   return {
     name: product.name,
     description: product.description,
-    price: parseFloat(product.price.replace('$', '')),
-    image: product.images[0]?.src || null,
+    price: product.price,
+    image: product.images[0]?.src || '',
   };
 }

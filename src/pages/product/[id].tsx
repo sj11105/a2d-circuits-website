@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import ProductPageTemplate from '@/components/ProductPageTemplate';
-import { apiService } from '@/services/api';
-import { transformBackendProduct } from '@/utils/productTransform';
+// import { apiService } from '@/services/api';
+// import { transformBackendProduct } from '@/utils/productTransform';
 import { Product } from '@/types/product';
 
 const ProductDetailPage = () => {
@@ -19,6 +19,10 @@ const ProductDetailPage = () => {
     async function fetchProduct() {
       try {
         setLoading(true);
+        
+        // Static product data - temporarily commenting out API calls
+        // TODO: Restore API integration when backend is ready
+        /*
         let productData = null;
         
         // Try using our API service
@@ -66,6 +70,10 @@ const ProductDetailPage = () => {
         } else {
           throw new Error('No product data returned');
         }
+        */
+        
+        // Temporary fallback - show error message for individual product pages
+        setError('Individual product pages are temporarily unavailable. Please visit the main products page to view our catalog.');
       } catch (err: any) {
         console.error('Product fetch error:', err);
         setError(err.message || 'Failed to load product. Please try again later.');
@@ -144,7 +152,7 @@ const ProductDetailPage = () => {
         <div className="text-center">
           <div className="text-gray-400 text-6xl mb-4">📦</div>
           <h1 className="text-2xl font-bold text-[var(--color-black)] mb-4">Product Not Found</h1>
-          <p className="text-[var(--color-charcoal-gray)] mb-8">The product you're looking for doesn't exist.</p>
+          <p className="text-[var(--color-charcoal-gray)] mb-8">The product you&apos;re looking for doesn&apos;t exist.</p>
           <div className="space-x-4">
             <button
               onClick={() => router.back()}
