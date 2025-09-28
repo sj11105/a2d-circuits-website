@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { useState } from 'react';
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,18 +9,18 @@ export default function Header() {
     <nav className="absolute top-0 left-0 right-0  z-50 bg-white px-8">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center gap-3">
-          <div className="relative h-16 w-16  ">
+          <div className="relative h-16 w-48  ">
             <Image
               src="/a2d-logo.png"
               alt="a2d Circuits Logo"
-              fill
-              className="object-contain"
+              width={500}
+              height={200}
+              className="object-contain -mt-12 -ml-8"
               priority
             />
           </div>
-          
         </Link>
-        
+
         <div className="hidden md:flex items-center gap-8">
           <Link
             href="/products"
@@ -41,7 +41,7 @@ export default function Header() {
             Contact
           </Link>
         </div>
-        
+
         <button
           className="md:hidden text-black"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -62,7 +62,7 @@ export default function Header() {
           </svg>
         </button>
       </div>
-      
+
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-black/90 backdrop-blur-sm">

@@ -19,11 +19,12 @@ export default function Home() {
       {/* Hero Section */}
       <header className="relative h-full min-h-[650px] text-white sm:pt-4 pt-20">
         <div
-          className="absolute inset-0 bg-cover bg-center blur-[2px] "
+          className="absolute inset-0 bg-contain bg-center bg-no-repeat blur-[2px]"
           style={{
             backgroundImage: `url("./hero.jpg")`,
           }}
         />
+
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 flex h-full flex-col">
           <div className="flex-grow flex items-center justify-center text-center">
@@ -156,87 +157,6 @@ export default function Home() {
                   </Link>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Value Proposition Section */}
-        <section className="mt-24">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-            <div className="flex flex-col items-center">
-              <div className="flex items-center justify-center h-16 w-16 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)]">
-                <svg
-                  className="h-8 w-8"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <h3 className="mt-6 text-xl font-semibold text-[var(--color-black)]">
-                Rare & Obsolete Components
-              </h3>
-              <p className="mt-2 text-[var(--color-charcoal-gray)]">
-                We source hard-to-find and obsolete electronic components,
-                ensuring your projects stay on track.
-              </p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="flex items-center justify-center h-16 w-16 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)]">
-                <svg
-                  className="h-8 w-8"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m12 7.5v-1.5m-12-6.75v-1.5m6 18.75v-1.5m-6.75-9.75h1.5m9.75 0h1.5m-4.5 4.5h1.5m-6.75 0h1.5m-1.5 4.5h1.5m6.75-4.5h1.5m-4.5 0h.008v.008h-.008v-.008zm-4.5 0h.008v.008h-.008v-.008zm4.5 4.5h.008v.008h-.008v-.008zm-4.5 0h.008v.008h-.008v-.008z"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <h3 className="mt-6 text-xl font-semibold text-[var(--color-black)]">
-                Expert Technical Support
-              </h3>
-              <p className="mt-2 text-[var(--color-charcoal-gray)]">
-                Our team of experts provides technical support to help you find
-                the right components for your needs.
-              </p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="flex items-center justify-center h-16 w-16 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)]">
-                <svg
-                  className="h-8 w-8"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.125-.504 1.125-1.125V14.25m-17.25 4.5h10.5m-10.5-4.5v-4.5m0 0a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5zM15 9.75a3 3 0 000-6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <h3 className="mt-6 text-xl font-semibold text-[var(--color-black)]">
-                Fast Global Shipping
-              </h3>
-              <p className="mt-2 text-[var(--color-charcoal-gray)]">
-                We offer fast and reliable global shipping to get your
-                components to you quickly.
-              </p>
             </div>
           </div>
         </section>

@@ -22,17 +22,27 @@ export default function About() {
             </h1>
 
             <p className="mt-6 text-lg md:text-xl text-[var(--color-charcoal-gray)] leading-relaxed">
-              Founded in 2005 by electronics enthusiast Alex Johnson, a2d
-              Circuits was born from a vision to provide access to rare and
-              obsolete electronic components. What started as a small workshop
-              has blossomed into a globally trusted source for engineers,
-              hobbyists, and businesses. Our unwavering commitment to quality
-              and customer satisfaction remains the cornerstone of our success.
+              A2D Circuits is a trusted supplier of electronic components,
+              serving customers across India and around the globe. With years of
+              experience in sourcing, stocking, and distributing both current
+              and obsolete parts, we help businesses keep their projects moving
+              without disruption. From radio valves, discrete semiconductors,
+              and industrial-grade components to hard-to-find replacements, we
+              specialize in delivering reliable products backed by professional
+              service. Our customers include manufacturers, repair houses,
+              resellers, and hobbyists who rely on us for quality, authenticity,
+              and timely supply. What sets us apart is our ability to locate and
+              provide even the rare and discontinued components that are often
+              unavailable in regular markets. By combining technical expertise
+              with a strong global supply network, we make sure our clients get
+              the right parts at the right time. At A2D Circuits, our mission is
+              simple: To be the go-to partner for all electronic component needs
+              from everyday essentials to vintage and obsolete stock. We are
+              committed to building long-term relationships based on trust,
+              transparency, and customer satisfaction.
             </p>
           </div>
         </section>
-
-       
 
         {/* Team Section */}
         <section className="py-20 px-4 sm:px-6 lg:px-8">
